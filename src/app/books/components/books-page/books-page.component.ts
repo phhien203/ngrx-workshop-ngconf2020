@@ -6,7 +6,7 @@ import {
 } from 'src/app/shared/models';
 import { BooksService } from 'src/app/shared/services';
 import { Store } from '@ngrx/store';
-import { BooksPageActions } from '../../actions';
+import { BooksPageActions, BooksApiActions } from '../../actions';
 
 @Component({
   selector: 'app-books',
@@ -31,6 +31,7 @@ export class BooksPageComponent implements OnInit {
   getBooks() {
     this.store.dispatch(BooksPageActions.enter());
     this.booksService.all().subscribe(books => {
+      this.store.dispatch(BooksApiActions.booksLoadedSuccess({ books }));
       this.books = books;
       this.updateTotals(books);
     });
@@ -64,7 +65,8 @@ export class BooksPageComponent implements OnInit {
 
   saveBook(bookProps: BookRequiredProps) {
     this.store.dispatch(BooksPageActions.createBook({ book: bookProps }));
-    this.booksService.create(bookProps).subscribe(() => {
+    this.booksService.create(bookProps).subscribe(book => {
+      this.store.dispatch(BooksApiActions.bookCreatedSuccess({ book }));
       this.getBooks();
       this.removeSelectedBook();
     });
@@ -72,7 +74,8 @@ export class BooksPageComponent implements OnInit {
 
   updateBook(book: BookModel) {
     this.store.dispatch(BooksPageActions.editBook({ book }));
-    this.booksService.update(book.id, book).subscribe(() => {
+    this.booksService.update(book.id, book).subscribe(book => {
+      this.store.dispatch(BooksApiActions.bookUpdatedSuccess({ book }));
       this.getBooks();
       this.removeSelectedBook();
     });
@@ -81,6 +84,9 @@ export class BooksPageComponent implements OnInit {
   onDelete(book: BookModel) {
     this.store.dispatch(BooksPageActions.deleteBook({ bookId: book.id }));
     this.booksService.delete(book.id).subscribe(() => {
+      this.store.dispatch(
+        BooksApiActions.bookDeletedSuccess({ bookId: book.id }),
+      );
       this.getBooks();
       this.removeSelectedBook();
     });
