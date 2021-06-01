@@ -1,15 +1,15 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import * as uuid from "uuid/v4";
-import { BookModel, BookRequiredProps } from "../models";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import * as uuid from 'uuid/v4';
+import { BookModel, BookRequiredProps } from '../models';
 
-const BASE_URL = "http://localhost:3000/books";
+const BASE_URL = 'http://localhost:3000/books';
 const HEADER = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class BooksService {
   constructor(private http: HttpClient) {}
@@ -25,13 +25,13 @@ export class BooksService {
   create(bookProps: BookRequiredProps) {
     const Book: BookModel = {
       id: uuid(),
-      ...bookProps
+      ...bookProps,
     };
 
     return this.http.post<BookModel>(
       `${BASE_URL}`,
       JSON.stringify(Book),
-      HEADER
+      HEADER,
     );
   }
 
@@ -39,7 +39,7 @@ export class BooksService {
     return this.http.patch<BookModel>(
       `${BASE_URL}/${id}`,
       JSON.stringify(updates),
-      HEADER
+      HEADER,
     );
   }
 

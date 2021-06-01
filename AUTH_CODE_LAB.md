@@ -14,8 +14,8 @@ In the previous sections of this workshop we've used the `props<>()` utility fun
 
 ```ts
 export const createBook = createAction(
-  "[Books Page] Create Book",
-  (book: BookRequiredProps) => ({ book })
+  '[Books Page] Create Book',
+  (book: BookRequiredProps) => ({ book }),
 );
 ```
 

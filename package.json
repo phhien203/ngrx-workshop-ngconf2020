@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "prettier": "prettier --write \"**/*.{js,json,css,scss,less,md,ts,html,component.html}\"",
     "start": "concurrently \"npm run server\" \"ng serve\"",
     "server": "json-server db.json --watch",
     "build": "ng build",
@@ -44,6 +45,7 @@
     "@angular/cli": "~9.1.0",
     "@angular/compiler-cli": "~9.1.0",
     "@angular/language-service": "~9.1.0",
+    "@schuchard/prettier": "^5.0.0",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.11.1",
     "@types/uuid": "^3.4.5",
@@ -53,8 +55,10 @@
     "jest": "^24.9.0",
     "jest-preset-angular": "^7.1.1",
     "json-server": "^0.15.1",
+    "prettier": "^2.3.0",
     "ts-node": "~8.3.0",
     "tslint": "~5.19.0",
+    "tslint-config-prettier": "1.18.0",
     "typescript": "~3.8.3"
   }
 }
